@@ -5,6 +5,7 @@
 package local.laura.airports.controllers;
 
 import java.util.List;
+import local.laura.airports.DTO.AirportMinDTO;
 import local.laura.airports.entities.Airport;
 import local.laura.airports.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,18 @@ public class AirportController {
     
     }
     
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName){
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        
+        if(result.isEmpty()){
+            
+            return ResponseEntity.notFound().build();
+        
+        } else{
+        
+            return ResponseEntity.ok(result);
+        }
+    
+    }
 }
