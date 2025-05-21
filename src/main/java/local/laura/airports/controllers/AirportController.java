@@ -57,4 +57,19 @@ public class AirportController {
         }
     
     }
+    
+    @GetMapping("/iatacode/{iataCode}")
+    public ResponseEntity<Airport> findByIataCode(@PathVariable String iataCode){
+        Airport result = airportService.findByIataCode(iataCode);
+        
+        if(result == null){
+            
+            return ResponseEntity.notFound().build();
+        
+        } else{
+        
+            return ResponseEntity.ok(result);
+        }
+    
+    }
 }
